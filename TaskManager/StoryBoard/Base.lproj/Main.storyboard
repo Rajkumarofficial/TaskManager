@@ -429,7 +429,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" name="AccentColor"/>
+                                                <color key="backgroundColor" name="subColor"/>
                                                 <constraints>
                                                     <constraint firstItem="CGy-az-gPT" firstAttribute="leading" secondItem="Zxi-jP-FzH" secondAttribute="leading" id="8RN-gv-j0I"/>
                                                     <constraint firstItem="CGy-az-gPT" firstAttribute="top" secondItem="Zxi-jP-FzH" secondAttribute="top" id="L1k-HW-KhL"/>
@@ -818,9 +818,6 @@
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
         <image name="trash.circle" catalog="system" width="128" height="123"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="AppMainColor">
             <color red="0.99215686274509807" green="0.95294117647058818" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
