@@ -16,6 +16,8 @@ class TaskListTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel:UILabel?
     @IBOutlet weak var descriptionLabel:UILabel?
     
+    @IBOutlet weak var priorityColour:UIView?
+    
     weak var delegate: TaskListCellDelegate?
     var indexPath: IndexPath? // Store the indexPath
     
@@ -38,6 +40,7 @@ class TaskListTableViewCell: UITableViewCell {
     private func configureCell(){
         titleLabel?.text = bindData?.taskName
         descriptionLabel?.text = bindData?.taskDescription
+        priorityColour?.backgroundColor = TaskPriority.init(from: bindData?.taskPriority ?? "")?.priorityColor
     }
     @IBAction func trashBttn(_ sender: UIButton){
         if let indexPath = indexPath {

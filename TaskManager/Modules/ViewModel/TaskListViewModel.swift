@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 enum TaskPriority:CaseIterable {
     case all
@@ -22,6 +23,20 @@ enum TaskPriority:CaseIterable {
         case .high: "High"
         case .medium: "Medium"
         case .low: "Low"
+        }
+    }
+    var priorityColor:UIColor {
+        switch self {
+        case .all:
+              return .clear
+        case .critical:
+            return .red
+        case .high:
+            return .yellow
+        case .medium:
+            return .blue
+        case .low:
+            return .green
         }
     }
     init?(from title: String) {
@@ -46,12 +61,6 @@ class TaskListViewModel {
     }
     
     // MARK: - Delete Task
-//    func deleteTask(at index: Int) {
-//        let taskToDelete = tasks[index]
-//        coreDataHelper.deleteTask(task: taskToDelete)
-//        tasks.remove(at: index)
-//    }
-    // Add this function to your TaskListViewModel
     func deleteTask(at indexPath: IndexPath, completion: @escaping () -> Void) {
         // Get the section title (date) for the task
         let sectionTitle = sectionTitles[indexPath.section]
@@ -80,7 +89,6 @@ class TaskListViewModel {
                 tasks.remove(at: taskIndex)
             }
             
-            // Notify the caller (e.g., UI) to refresh
             completion()
         } else {
             print("Error: Task not found at indexPath \(indexPath)")
