@@ -49,7 +49,9 @@ class ViewController: UIViewController {
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections()
+        let sections = viewModel.numberOfSections()
+        tableView.showEmptyMessage(sections == 0)
+        return sections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,7 +83,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             vc.getSingleTaskData = task
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
     }
 }
 
@@ -94,11 +95,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource,U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PriorityCollectionViewCell", for: indexPath) as! PriorityCollectionViewCell
         let priority = viewModel.priorities[indexPath.item]
-        if priority == selectedTab{
-            cell.titlebackgroundView.addBorderColor(borderColor: .blue, borderWidth: 0.7, cornerRadius: 20)
-        } else{
-            cell.titlebackgroundView.addBorderColor(borderColor: .clear, borderWidth: 0.7, cornerRadius: 20)
-        }
+        let borderColor: UIColor = (priority == selectedTab) ? UIColor(named: "subColor")! : .systemGray3
+        
+        cell.titlebackgroundView.addBorderColor(borderColor: borderColor, borderWidth: 0.7, cornerRadius: 20)
         
         cell.titleLabel.text = priority.priorityTitle
         return cell
@@ -129,10 +128,10 @@ extension ViewController : TaskDetailsVCDelegate{
 }
 extension ViewController : TaskListCellDelegate {
     func didTapDelete(for index: IndexPath) {
-        viewModel.deleteTask(at: index){
-            self.tableView.reloadData()
+        showOkCancelAlert(title: "Delete Task", message: "Are you sure you want to delete this task?") {
+            self.viewModel.deleteTask(at: index){
+                self.tableView.reloadData()
+            }
         }
-        
-        
     }
 }

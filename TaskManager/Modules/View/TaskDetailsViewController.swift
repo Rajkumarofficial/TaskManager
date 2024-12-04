@@ -48,7 +48,6 @@ class TaskDetailsViewController: UIViewController  {
             sheet.prefersGrabberVisible = true
             sheet.preferredCornerRadius = 24
             sheet.prefersGrabberVisible = true
-            
         }
         bottomSheet.delegate = self
         self.present(bottomSheet, animated: true)
@@ -58,19 +57,16 @@ class TaskDetailsViewController: UIViewController  {
     }
     
     @IBAction func addBttn(_ sender: UIButton){
-        
-        if viewModel.validateCredentials(tasktittle: tittleText.text ?? "", taskdescription: priorityText.text ?? "" , taskpriority: descriptiontext.text ?? "") {
+        if viewModel.validateCredentials(tasktittle: tittleText.text ?? "", taskdescription: descriptiontext.text ?? "" , taskpriority: priorityText.text ?? "") {
             // Proceed with login logic (e.g., navigation)
             if !isUpdate{
                 ListviewModel.addTask(title: tittleText.text ?? "", description: descriptiontext.text ?? "", priority: priority ?? .all)
             } else{
                 if let priority = TaskPriority(from: getSingleTaskData?.taskPriority ?? "") {
-                    print("Converted to enum: \(priority)") // Outputs: Converted to enum: high
                     ListviewModel.updateTask(at: Int(getSingleTaskData?.id ?? 0), title: tittleText.text ?? "", description: descriptiontext.text ?? "", priority: priority)
                 } else {
                     print("Invalid priority string")
                 }
-                
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                 self.delegate?.didCtrateTask()

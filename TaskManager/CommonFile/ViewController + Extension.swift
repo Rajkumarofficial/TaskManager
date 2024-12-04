@@ -19,6 +19,20 @@ extension UITableView{
         }
         return cell
     }
+    func showEmptyMessage(_ show: Bool, message: String = "No tasks available. Please add new tasks.") {
+        if show {
+            let messageLabel = UILabel()
+            messageLabel.text = message
+            messageLabel.textAlignment = .center
+            messageLabel.textColor = .gray
+            messageLabel.numberOfLines = 0
+            messageLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            messageLabel.sizeToFit()
+            self.backgroundView = messageLabel
+        } else {
+            self.backgroundView = nil
+        }
+    }
     func restore(){
         self.backgroundView = nil
     }
@@ -37,6 +51,22 @@ extension UIViewController{
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    func showOkCancelAlert(title: String, message: String, onOk: @escaping () -> Void) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // OK Action
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            onOk() // Execute the OK action handler
+        }
+        alertController.addAction(okAction)
+        
+        // Cancel Action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        // Present the alert
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 extension UIView {
